@@ -2,6 +2,3 @@
 - [책 정보](http://www.kyobobook.co.kr/product/detailViewKor.laf?barcode=9788966260928)
 
 <img src="https://user-images.githubusercontent.com/66561524/178166808-cafed2fc-b020-458e-ad36-d35547d6cdb4.png" width="200" height="300"/>
-
----
-> Influenced by https://github.com/woowacourse-moltudy/elegant-object-study, https://github.com/road-of-craftsman/study-elegant-object

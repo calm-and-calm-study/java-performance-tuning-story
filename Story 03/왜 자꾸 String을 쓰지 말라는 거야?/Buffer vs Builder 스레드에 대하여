@@ -1,0 +1,93 @@
+@ Why
+- StringBuffer와 StringBuilder 클래스의 차이점을 좀 더 상세하게 알고 싶어졌다.
+- Buffer는 스레드에 안전, Builder는 단일 스레드에서만 안전 인데 -> "스레드가 어떻게 되었길래..?"
+
+| StringBuffer  vs  StringBuilder
+- 가장 큰 차이점은 동기화의 유무로써 StringBuffer는 동기화 키워드를 지원하여 멀티쓰레드 환경에서 안전하다는 점(thread-safe) 입니다.  
+- 참고로 String도 불변성을 가지기때문에 마찬가지로  멀티쓰레드 환경에서의 안정성(thread-safe)을 가지고 있습니다. 
+- 반대로 StringBuilder는 동기화를 지원하지 않기때문에 멀티쓰레드 환경에서 사용하는 것은 적합하지 않지만 동기화를 고려하지 않는 만큼 
+  단일쓰레드에서의 성능은 StringBuffer 보다 뛰어납니다.
+  
+ @ 그래서..?
+ - 동기화가 되냐 안되냐의 차이인데, Buffer는 Synchronized Keyword가 있어 동기화를 지원한다.
+ - 밑의 코드를 보자 (사진 첨부가 안되네..)
+ 
+ private static void sleep(int time) {
+  try {
+    Thread.sleep(time);
+  } catch (Throwable e) {
+ 
+  }
+}
+public static void main(String[] test) {
+ 
+  StringBuilder builder = new StringBuilder();
+  StringBuffer buffer = new StringBuffer();
+  // 쓰레드를 두개 만들어서 0.1초의 간격으로 데이터를 넣습니다.
+  // 이 쓰레드는 0를 넣습니다.
+  Executors.newSingleThreadExecutor().execute(() -> {
+    for (int i = 0; i < 10; i++) {
+      builder.append(0);
+      buffer.append(0);
+      sleep(100);
+    }
+  });
+  // 이 쓰레드는 1를 넣습니다.
+  Executors.newSingleThreadExecutor().execute(() -> {
+    for (int i = 0; i < 10; i++) {
+      builder.append(1);
+      buffer.append(1);
+      sleep(100);
+    }
+  });
+ 
+  // 결과가 끝낳때까지 10초 기다린다.
+  sleep(10000);
+  System.out.println(builder.toString());
+  System.out.println(buffer.toString());
+}
+
+
+- 결과 값은 이렇다. 
+011010100101010 //builder
+01100110101001100110  //buffer
+ 
+- 첫번째 스레드와 두번째 스레드에서 각각 10개의 문자를 넣었기 때문에 20개의 문자를 예상했습니다만, StringBuilder의 경우는 몇 개의 문자가 빠져있습니다.
+- 여러 스레드로부터 동시에 접근이 일어나도 프로그램의 실행에 문제가 없는 것을 thread-safe라고 한다.
+
+ 
+| Buffer의 synchronized를 사용한다면 -> 교착상태 주의!!
+
+  Executors.newSingleThreadExecutor().execute(() -> {
+    for (int i = 0; i < 10; i++) {
+      // 데드락에 걸려 버렸다.
+      synchronized (buffer1) {
+        buffer1.append(0);
+        buffer2.append(0);
+      }
+      sleep(100);
+    }
+  });
+  Executors.newSingleThreadExecutor().execute(() -> {
+    for (int i = 0; i < 10; i++) {
+      // 데드락에 걸려 버렸다.
+      synchronized (buffer2) {
+        buffer1.append(1);
+        buffer2.append(2);
+      }
+      sleep(100);
+    }
+  });
+
+ 
+ | Synchronized란?
+ - 공유 데이터에 lock을 걸어 작업중이던 쓰레드가 마칠때까지 다른 쓰레드에게 제어권이 넘어가지 않게 보호한다.
+ - Synchronized 블럭이 끝나면 lock이 풀리고 다른 쓰레드도 접근 가능하게 된다.
+ - 교착상태(dead-lock)이 빠질 위험이 있으므로 주의한다.
+
+| Thread DeadLock 이란?
+- 멀티 쓰레드 프로그래밍에서 동기화를 통해 락을 획득하여 동일한 자원을 여러 곳에서 함부로 사용하지 못하도록 하였습니다. 
+- 하지만 두 개의 쓰레드에서 서로가 가지고 있는 락이 해제되기를 기다리는 상태가 생길 수 있으며 이러한 상태를 교착상태(deadlock) 이라고 합니다. 
+- 교착상태가 되면 어떤 작업도 실행되지 못하고 서로 상대방의 작업이 끝나기만 바라는 무한정 대기 상태입니다.
+- [쉬운버전] 각자의 것을 소유한 상태(lock)에서 서로의 것을 쓰려고 하는데 그게 서로 lock이 걸려있으니까, 대기만 하는상태!!
+

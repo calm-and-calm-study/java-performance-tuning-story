@@ -4,7 +4,7 @@
 
 WAS와 DB 사이의 연결을 할 때 가장 비용이 많이 드는 작업은 DB와의 Connection입니다. 하지만 요청이 들어올 때마다 DB와의 커넥션을 그때 그때 맺어준다면 이에 대한 부하는 꽤나 복잡해질 수 있습니다. 이를 보완할 수 있는 방법이 Connection Pool입니다.
 
-![IBM’s article [https://www.ibm.com/developerworks/data/library/techarticle/dm-1105fivemethods/index.html](https://www.ibm.com/developerworks/data/library/techarticle/dm-1105fivemethods/index.html)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/688a1055-dea8-4803-b751-802debffaa7c/Untitled.png)
+![image](https://user-images.githubusercontent.com/66561524/185721876-e9c71752-d87c-4e49-b349-ebf05ff6b368.png)
 
 IBM’s article [https://www.ibm.com/developerworks/data/library/techarticle/dm-1105fivemethods/index.html](https://www.ibm.com/developerworks/data/library/techarticle/dm-1105fivemethods/index.html)
 
@@ -41,7 +41,7 @@ HikariCP wiki에서는 이 공식대로 Maximum pool size를 설정하면 Dead l
 
 HikariCP는 2012년 개발된 가볍고 빠르고 안정적인 JDBC Connection Pool입니다. Spring Boot 2.x부터는 default JDBC connection pool로 선정되기 도했습니다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5db763c0-599d-4106-8bc7-dd7fdcf7b61e/Untitled.png)
+![image](https://user-images.githubusercontent.com/66561524/185721882-3f3734c9-4b65-4b14-82d1-47f5e7b22c56.png)
 
 [https://github.com/brettwooldridge/HikariCP](https://github.com/brettwooldridge/HikariCP)
 
@@ -51,7 +51,7 @@ HikariCP의 소스코드를 뜯어보면 다음과 같습니다. (우아한형�
 
 HikaraPool에서 getConnection() 로직은 3단계를 통해 Connection을 반환하고 있습니다. 내부적으로 ConcurrentBag이라는 구조체를 이용하여 Connection을 리턴하는데요. 애플리케이션이 hikari connection pool에서 들고있는 connection을 빌리려면 다음과 같은 과정을 거치게 됩니다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0baf19a0-1b42-4416-837d-ec2bd7cbf39d/Untitled.png)
+![image](https://user-images.githubusercontent.com/66561524/185721889-3cc29ecb-acf3-4690-8cdb-0ce5341bd9e6.png)
 
 - 이전에 사용했던 connection을 우선으로 빌려줍니다.
 - 사용가능한 connection이 없으면 handoffqueue에 등록하여 다음 connection의 반납을 기다린다 (FIFO)
@@ -59,7 +59,7 @@ HikaraPool에서 getConnection() 로직은 3단계를 통해 Connection을 반�
 
 애플리케이션이 사용한 connection을 반납하려면 다음과 같은 과정을 거치게 됩니다.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f13fa615-181a-4ac1-bc17-c5d5c98d9079/Untitled.png)
+![image](https://user-images.githubusercontent.com/66561524/185721894-50132d39-aa9b-4f1b-bbda-89932f983685.png)
 
 - 커넥션 반납은 connection.close()를 기점으로 시작된다. 따라서 dead lock을 방지하기 위해서는 가능한 빠른 시점에 connection을 닫아줘야 한다.
 - 해당 connection을 사용가능한 connection(idel)으로 바꾼다.

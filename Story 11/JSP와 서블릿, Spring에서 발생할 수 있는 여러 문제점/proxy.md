@@ -17,8 +17,7 @@
 이 방식은 대역폭 사용을 감소시킬 수 있다는 것과 접근 정책 구현에 있어 다루기 쉬우면서도 비용이 저렴하다는 장점을 갖고 있습니다.
 사용자의 정해진 사이트만 연결할 수 있는 등 웹 사용환경을 제한할 수 있으므로 기업 환경 등에서 많이 사용합니다.
 
-![Screen Shot 2022-08-22 at 11.29.40 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0662bb0e-4340-400f-8a89-63ca4f7be184/Screen_Shot_2022-08-22_at_11.29.40_PM.png)
-
+<img width="747" alt="Screen Shot 2022-08-22 at 11 29 40 PM" src="https://user-images.githubusercontent.com/41246605/186295471-ef4d4739-cbd6-4bce-bac1-39d2cba5abcc.png">
 
 
 ### Reverse 프록시
@@ -28,7 +27,8 @@
 만일 WAS 가 DMZ 환경에서 서비스를 진행하게 되면, WAS 는 DB 서버와 연결되므로 WAS 가 최전방에 있으면 WAS 가 털릴 경우 DB 서버까지 털릴 수 있습니다.
 때문에 클라이언트와 연결되는 서버는 Reverse 프록시 서버이며, 이 서버가 WAS 와 통신하여 응답결과를 클라이언트에게 리턴해주기 때문에 보안 문제에서 안전할 수 있다.
 
-![Screen Shot 2022-08-22 at 11.35.52 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4d9cd947-3357-4a43-a9d7-06127e156b35/Screen_Shot_2022-08-22_at_11.35.52_PM.png)
+
+<img width="821" alt="Screen Shot 2022-08-22 at 11 35 52 PM" src="https://user-images.githubusercontent.com/41246605/186295562-92e2bf81-e555-4e27-b6df-cded6b44cd3f.png">
 
 그렇다면 Proxy 의 개념은 우리의 서비스에서 어떻게 적용되어 사용될까? 대표적인 예시로 스프링 프레임워크의 AOP 가 있다.
 
@@ -47,8 +47,7 @@
 실제 오브젝트로의 호출까지 담당하게 된다.
 
 
-![Screen Shot 2022-08-22 at 11.52.10 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3918a0da-4ca9-486d-87ec-579ce5605262/Screen_Shot_2022-08-22_at_11.52.10_PM.png)
-
+<img width="521" alt="Screen Shot 2022-08-22 at 11 52 10 PM" src="https://user-images.githubusercontent.com/41246605/186295637-e5220f39-7d8f-43f6-bd3e-c537057e7840.png">
 
 
 스프링은 아래 2가지 방식으로 타겟 오브젝트의 프록시를 만든다.

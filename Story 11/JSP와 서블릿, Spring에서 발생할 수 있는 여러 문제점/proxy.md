@@ -69,3 +69,9 @@ AOP 는 **Aspect Oriented Programming** 의 약자로 관점지향 프로그래�
 위에서 언급한 프록시 객체를 통해 우리는 트랜잭션, 로깅, 캐싱 등의 기능
 
 
+# Reference
+
+---
+
+- [https://brownbears.tistory.com/191](https://brownbears.tistory.com/191)
+- [https://eminentstar.tistory.com/75](https://eminentstar.tistory.com/75)

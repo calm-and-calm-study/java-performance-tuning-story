@@ -25,8 +25,10 @@
 
 - DocumentRoot : 웹 페이지의 루트를 지정하는 지시자 
                  DocumentRoot 마지막에 슬래시(/) 지정하면 안됨.
-                 <Directory> 지시자를 적용하면 별도의 <Directory> 지시자를 사용하지 않는 한 그 이하의 서브 디렉터리들도 모두 이 지시자의 속성을 상속받는다
-
+                 
+- Directory : 각 디렉터리에 고유한 설정을 적용하기 위한 블록.
+              <Directory> 지시자를 적용하면 별도의 <Directory> 지시자를 사용하지 않는 한 그 이하의 서브 디렉터리들도 모두 이 지시자의 속성을 상속받는다.
+ 
   ### httpd.conf의 메인 서버 설정에 있는 최상위 <Directory>
       `<Directory />`
       `AllowOverride none`

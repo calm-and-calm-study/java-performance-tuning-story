@@ -36,12 +36,12 @@
   웹 서버의 파일 시스템 루트(/)에 대한 설정
   Apache는 일단 모든 디렉터리의 액세스를 금지시키고 서비스를 제공할 디렉터리만 새로 설정하여 허용시키는, 선금지 후허용 원칙을 기본 설정값으로 하고 있다
 
-  ###htdocs 폴더에 액세스 권한을 부여
-  `<Directory "${SRVROOT}/htdocs">`
-  `Options FllowSymLink`
-  `AllowOverride All`
-  `Require all granted`
-  `</Directory>`
+  ### htdocs 폴더에 액세스 권한을 부여
+      `<Directory "${SRVROOT}/htdocs">`
+      `Options FllowSymLink`
+      `AllowOverride All`
+      `Require all granted`
+      `</Directory>`
 
 - Options :  이 지시자는 이 디렉터리가 어떤 용도로 사용되는지를 정의
             - FllowSymLinks: 이 디렉터리 내에서 심볼릭 링크를 가능하게 한다.

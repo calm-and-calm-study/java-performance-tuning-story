@@ -1,0 +1,44 @@
+
+# why? 
+- 마지막이니 간단하게...ㅎㅎ
+
+Xms: 초기 Heap 사이즈
+Xmx: 최대 Heap 사이즈
+XX:ReservedCodeCacheSize: 코드 캐쉬 사이즈 Heap 메모리 사이즈와 공유하지 않는다.
+XX:+UseG1GC: G1GC 가비지 컬랙션을 사용한다.
+XX:MetaspaceSize: Java8 이상의 Permanent 영역 사이즈
+XX:MaxMetaspaceSize: Java8 이상의 최대 Permanent 영역 사이즈
+XX:+UseCompressedOops: 64비트 JVM에서 압축 참조를 사용 가능
+XX:MaxGCPauseMillis: GC로 인한 최대 중단시간을 명시
+XX:ParallelGCThreads: 다중 GC를 위해 사용되어질 GC 스레드의 수
+XX:ConcGCThreads: 동시적 CMS 단계가 동작할때에 사용할 쓰레드 개수를 정의
+XX:+HeapDumpOnOutOfMemoryError: OutOfMemoryError 발생 시 자동으로 heap dump를 생성
+XX:ErrorFile: 에러파일 생성 위치
+XX:HeapDumpPath: HeapDump 파일 생성 위치
+ea: assertions을 사용한다.
+server: 자바 HotSpot Server VM
+Dsun.io.useCanonCaches: Java의 정규화 캐시 사용여부
+Djava.net.preferIPv4Stack: IP4를 사용여부
+Dfile.encoding: Java 소스파일 인코딩
+
+
+ex) 
+
+-Xms2g
+-Xmx2g
+-XX:ReservedCodeCacheSize=256m
+-XX:+UseG1GC
+-XX:MetaspaceSize=768m
+-XX:MaxMetaspaceSize=768m
+-XX:+UseCompressedOops
+-XX:MaxGCPauseMillis=200
+-XX:ParallelGCThreads=4
+-XX:ConcGCThreads=1
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log
+-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof
+-ea
+-server
+-Dsun.io.useCanonCaches=false
+-Djava.net.preferIPv4Stack=true
+-Dfile.encoding=UTF-8
